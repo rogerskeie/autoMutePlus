@@ -29,7 +29,7 @@ function autoMute(tab) {
 
 function toggleAutoMute() {
     browser.storage.local.get().then(result => {
-        browser.storage.local.set({autoMute: !result.autoMute})
+        browser.storage.local.set({autoMute: !result.autoMute});
         toggleIcon();
     });
 }
@@ -37,7 +37,10 @@ function toggleAutoMute() {
 function toggleIcon() {
     browser.storage.local.get().then(result => {
         chrome.browserAction.setIcon({
-            path: result.autoMute ? 'Icons/icon_muted.svg' : 'Icons/icon_unmuted.svg'
+            path: 'Icons/icon_' + (result.autoMute ? 'muted' : 'unmuted') + '.svg'
+        });
+        chrome.browserAction.setTitle({
+            title: 'Click to ' + (result.autoMute ? 'disable' : 'enable') + ' auto mute'
         });
     });
 }

@@ -27,6 +27,6 @@
   },
   "browser_action": {
     "default_icon": "icons/icon_muted.svg",
-    "default_title": "Auto Mute Plus"
+    "default_title": "Click to disable auto mute."
   }
 }
