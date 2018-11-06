@@ -11,6 +11,10 @@
         if (result.whitelist === undefined) {
             browser.storage.local.set({whitelist: ''});
         }
+
+        if (result.blacklist === undefined) {
+            browser.storage.local.set({blacklist: ''});
+        }
     });
 
     toggleIcon();
@@ -25,8 +29,12 @@ function autoMute(tab) {
 
         browser.tabs.query({currentWindow: true, active: true}).then(function (tabs) {
             var whitelisted = listMatchesTab(result.whitelist, tabs[0]);
+            var blacklisted = listMatchesTab(result.blacklist, tabs[0]);
 
-            if (!whitelisted && result.autoMute && ((tab.incognito && privateMode) || (!tab.incognito && normalMode))) {
+            if (
+                blacklisted
+                || (!whitelisted && result.autoMute && ((tab.incognito && privateMode) || (!tab.incognito && normalMode)))
+            ) {
                 browser.tabs.update(tab.id, {
                     muted: true
                 });

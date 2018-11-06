@@ -15,6 +15,9 @@
     "message": "Mute new tabs in a private window"
   },
   "whitelist": {
-    "message": "Whitelist (one valid regular expression per line.)"
+    "message": "Whitelist (one valid regular expression per line). Will never be muted."
+  },
+  "blacklist": {
+    "message": "Blacklist (one valid regular expression per line). Will always be muted."
   }
 }
