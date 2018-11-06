@@ -64,7 +64,6 @@ function toggleIcon() {
 
 function listMatchesTab(listContents, tab) {
     var lines = listContents.split('\n');
-    var hasMatch = false;
 
     for (var i = 0; i < lines.length; i++) {
         if (lines[i].trim() === '') {
@@ -80,5 +79,5 @@ function listMatchesTab(listContents, tab) {
         }
     }
 
-    return hasMatch;
+    return false;
 }
