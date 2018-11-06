@@ -3,7 +3,7 @@ Auto Mute Plus is a fork of the Firefox extension Auto mute v1.1, and adds the f
 - A whitelist (never muted, even with auto mute enabled).
 - A blacklist (always muted, even with auto mute disabled).
 
-I you don't need the additional fetures, you can use the original extension (download link at the bottom of this page).
+I you don't need the additional features, you can use the original extension (download link at the bottom of this page).
 
 Below is the original README.md from https://github.com/WaldiPL/autoMute
 
