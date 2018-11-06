@@ -5,4 +5,5 @@ label {
 
 .warning {
     color: red;
+    display: table;
 }

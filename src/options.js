@@ -35,8 +35,12 @@ function saveOptions() {
 
 function displayRegexWarning(listContents, type) {
     var lines = listContents.split('\n');
-    var warningElement = document.getElementById(type + '-warning');
-    warningElement.innerHTML = '';
+    var warningsContainer = document.getElementById(type + '-warnings');
+    var warningElements = warningsContainer.getElementsByClassName('warning');
+
+    while (warningElements[0]) {
+        warningElements[0].parentNode.removeChild(warningElements[0]);
+    }
 
     for (var i = 0; i < lines.length; i++) {
         if (lines[i].trim() === '') {
@@ -46,8 +50,10 @@ function displayRegexWarning(listContents, type) {
         try {
             new RegExp(lines[i], 'i');
         } catch (e) {
-            warningElement.innerHTML =  'Invalid regular expression "' + lines[i] + '".';
-            break;
+            var warningElement = document.createElement('span');
+            warningElement.classList.add('warning');
+            warningElement.appendChild(document.createTextNode('Invalid RegEx "' + lines[i] + '"'));
+            warningsContainer.appendChild(warningElement);
         }
     }
 }
