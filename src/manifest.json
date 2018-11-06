@@ -23,7 +23,7 @@
   "default_locale": "en",
   "version": "1.0",
   "icons": {
-    "48": "icons/icon.svg"
+    "48": "icons/icon_muted.svg"
   },
   "browser_action": {
     "default_icon": "icons/icon_muted.svg",
