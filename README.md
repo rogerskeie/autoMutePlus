@@ -1,9 +1,9 @@
-Auto Mute Plus is an idea I have and is work in progress. For now, you're better off getting the original Auto mute FireFox extension below.
-
-I plan to add the following features:
+Auto Mute Plus is a fork of the Firefox extension Auto mute v1.1, and adds the following features:
 - A toolbar button to enable and disable auto mute.
-- A whitelist for sites or pages that will never be auto muted, possibly with RegEx enabled.
-- A blacklist for sites or pages that will always be auto muted, even when auto mute is disabled with the toolbar button.
+- A whitelist (never muted, even with auto mute enabled).
+- A blacklist (always muted, even with auto mute disabled).
+
+I you don't need the additional fetures, you can use the original extension (download link at the bottom of this page).
 
 Below is the original README.md from https://github.com/WaldiPL/autoMute
 
