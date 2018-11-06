@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
-	<link rel="stylesheet" href="options.css"/>
-  </head>
+    <link rel="stylesheet" href="options.css"/>
+</head>
 <body>
-  <h3 id="title"></h3>
-  <form id="optionsForm">
+<h3 id="title"></h3>
+<form id="optionsForm">
     <input type="checkbox" id="normalMode"><label id="label1" for="normalMode"></label><br/>
     <input type="checkbox" id="privateMode"><label id="label2" for="privateMode"></label><br/>
-  </form>
-  <script src="options.js"></script>
+
+    <span id="whitelist-warning" class="warning"></span><br/>
+    <label id="label3" for="whitelist"></label><br/>
+    <textarea id="whitelist" cols="80" rows="15"></textarea><br/>
+</form>
+<script src="options.js"></script>
 </body>
 </html>

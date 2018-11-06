@@ -13,5 +13,8 @@
   },
   "private": {
     "message": "Mute new tabs in a private window"
+  },
+  "whitelist": {
+    "message": "Whitelist (one valid regular expression per line.)"
   }
 }

@@ -5,7 +5,11 @@
         }
 
         if (result.autoMute === undefined) {
-            browser.storage.local.set({autoMute: true})
+            browser.storage.local.set({autoMute: true});
+        }
+
+        if (result.whitelist === undefined) {
+            browser.storage.local.set({whitelist: ''});
         }
     });
 
@@ -19,11 +23,16 @@ function autoMute(tab) {
         const normalMode = result.normalMode;
         const privateMode = result.privateMode;
 
-        if (result.autoMute && ((tab.incognito && privateMode) || (!tab.incognito && normalMode))) {
-            browser.tabs.update(tab.id, {
-                muted: true
-            });
-        }
+        browser.tabs.query({currentWindow: true, active: true}).then(function (tabs) {
+            var whitelisted = listMatchesTab(result.whitelist, tabs[0]);
+
+            if (!whitelisted && result.autoMute && ((tab.incognito && privateMode) || (!tab.incognito && normalMode))) {
+                browser.tabs.update(tab.id, {
+                    muted: true
+                });
+            }
+        });
+
     });
 }
 
@@ -43,4 +52,25 @@ function toggleIcon() {
             title: 'Click to ' + (result.autoMute ? 'disable' : 'enable') + ' auto mute'
         });
     });
+}
+
+function listMatchesTab(listContents, tab) {
+    var lines = listContents.split('\n');
+    var hasMatch = false;
+
+    for (var i = 0; i < lines.length; i++) {
+        if (lines[i].trim() === '') {
+            continue;
+        }
+
+        try {
+            if ((new RegExp(lines[i], 'i')).test(tab.url)) {
+                return true;
+            }
+        } catch (e) {
+            console.log('Invalid regular expression "' + lines[i] + '".');
+        }
+    }
+
+    return hasMatch;
 }
