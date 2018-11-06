@@ -1,26 +1,32 @@
 {
   "applications": {
     "gecko": {
-      "id": "autoMute@waldemar.b",
+      "id": "autoMutePlus@rogerskeie",
       "strict_min_version": "45.0a1"
     }
   },
   "permissions": [
-		"tabs",
-		"storage"
-	],
-   "background": {
-      "scripts": [ "bg.js" ]
-   },
-   "options_ui": {
-      "page": "options.html"
-   },
-   "description": "__MSG_extensionDescription__",
-   "manifest_version": 2,
-   "name": "__MSG_extensionName__",
-   "default_locale": "en",
-   "version": "1.1",
-	"icons": {
-      "48": "icons/icon.svg"
-   }
+    "tabs",
+    "storage"
+  ],
+  "background": {
+    "scripts": [
+      "bg.js"
+    ]
+  },
+  "options_ui": {
+    "page": "options.html"
+  },
+  "description": "__MSG_extensionDescription__",
+  "manifest_version": 2,
+  "name": "__MSG_extensionName__",
+  "default_locale": "en",
+  "version": "1.0",
+  "icons": {
+    "48": "icons/icon.svg"
+  },
+  "browser_action": {
+    "default_icon": "icons/icon_muted.svg",
+    "default_title": "Auto Mute Plus"
+  }
 }

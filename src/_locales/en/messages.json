@@ -1,6 +1,6 @@
 {
   "extensionName": {
-    "message": "Auto mute"
+    "message": "Auto Mute Plus"
   },
   "extensionDescription": {
     "message": "Auto mute of new tabs."
@@ -9,9 +9,9 @@
     "message": "Options"
   },
   "normal": {
-    "message": "Mute new tabs in the normal window"
+    "message": "Mute new tabs in a normal window"
   },
   "private": {
-    "message": "Mute new tabs in the private window"
+    "message": "Mute new tabs in a private window"
   }
 }
