@@ -15,6 +15,10 @@
         if (result.blacklist === undefined) {
             browser.storage.local.set({blacklist: ''});
         }
+
+        if (result.autoMute === undefined) {
+            browser.storage.local.set({autoMute: true});
+        }
     });
 
     toggleIcon();
