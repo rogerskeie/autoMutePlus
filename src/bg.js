@@ -35,9 +35,7 @@ function autoMute(tab) {
                 blacklisted
                 || (!whitelisted && result.autoMute && ((tab.incognito && privateMode) || (!tab.incognito && normalMode)))
             ) {
-                browser.tabs.update(tab.id, {
-                    muted: true
-                });
+                browser.tabs.update(tab.id, {muted: true});
             }
         });
 
@@ -53,10 +51,10 @@ function toggleAutoMute() {
 
 function toggleIcon() {
     browser.storage.local.get().then(result => {
-        chrome.browserAction.setIcon({
+        browser.browserAction.setIcon({
             path: 'icons/icon_' + (result.autoMute ? 'muted' : 'unmuted') + '.svg'
         });
-        chrome.browserAction.setTitle({
+        browser.browserAction.setTitle({
             title: 'Click to ' + (result.autoMute ? 'disable' : 'enable') + ' auto mute'
         });
     });
