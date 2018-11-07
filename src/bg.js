@@ -15,10 +15,6 @@
         if (result.blacklist === undefined) {
             browser.storage.local.set({blacklist: ''});
         }
-
-        if (result.autoMute === undefined) {
-            browser.storage.local.set({autoMute: true});
-        }
     });
 
     toggleIcon();
@@ -58,7 +54,7 @@ function toggleAutoMute() {
 function toggleIcon() {
     browser.storage.local.get().then(result => {
         chrome.browserAction.setIcon({
-            path: 'Icons/icon_' + (result.autoMute ? 'muted' : 'unmuted') + '.svg'
+            path: 'icons/icon_' + (result.autoMute ? 'muted' : 'unmuted') + '.svg'
         });
         chrome.browserAction.setTitle({
             title: 'Click to ' + (result.autoMute ? 'disable' : 'enable') + ' auto mute'
