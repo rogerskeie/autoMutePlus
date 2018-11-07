@@ -19,5 +19,14 @@
   },
   "blacklist": {
     "message": "Blacklist (one valid regular expression per line). Will always be muted."
+  },
+  "invalidRegex": {
+    "message": "Invalid RegEx"
+  },
+  "enableAutoMute": {
+    "message": "Click to enable auto mute"
+  },
+  "disableAutoMute": {
+    "message": "Click to disable auto mute"
   }
 }

@@ -55,7 +55,7 @@ function toggleIcon() {
             path: 'icons/icon_' + (result.autoMute ? 'muted' : 'unmuted') + '.svg'
         });
         browser.browserAction.setTitle({
-            title: 'Click to ' + (result.autoMute ? 'disable' : 'enable') + ' auto mute'
+            title: browser.i18n.getMessage((result.autoMute ? 'disable' : 'enable') + 'AutoMute')
         });
     });
 }
@@ -73,7 +73,7 @@ function listMatchesTab(listContents, tab) {
                 return true;
             }
         } catch (e) {
-            console.log('Invalid regular expression "' + lines[i] + '".');
+            console.log(browser.i18n.getMessage('invalidRegex') + ' "' + lines[i] + '".');
         }
     }
 

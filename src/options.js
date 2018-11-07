@@ -52,7 +52,11 @@ function displayRegexWarning(listContents, type) {
         } catch (e) {
             var warningElement = document.createElement('span');
             warningElement.classList.add('warning');
-            warningElement.appendChild(document.createTextNode('Invalid RegEx "' + lines[i] + '"'));
+            warningElement.appendChild(
+                document.createTextNode(
+                    browser.i18n.getMessage('invalidRegex') + ' "' + lines[i] + '"'
+                )
+            );
             warningsContainer.appendChild(warningElement);
         }
     }
