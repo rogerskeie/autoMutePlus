@@ -1,19 +1,13 @@
 (function () {
     browser.storage.local.get().then(result => {
         if (result.normalMode === undefined) {
-            browser.storage.local.set({normalMode: true, privateMode: true});
-        }
-
-        if (result.autoMute === undefined) {
-            browser.storage.local.set({autoMute: true});
-        }
-
-        if (result.whitelist === undefined) {
-            browser.storage.local.set({whitelist: ''});
-        }
-
-        if (result.blacklist === undefined) {
-            browser.storage.local.set({blacklist: ''});
+            browser.storage.local.set({
+                normalMode: true,
+                privateMode: true,
+                autoMute: true,
+                whitelist: '',
+                blacklist: ''
+            });
         }
     });
 
