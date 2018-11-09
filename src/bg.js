@@ -55,19 +55,19 @@ function toggleIcon() {
 }
 
 function listMatchesTab(listContents, tab) {
-    var lines = listContents.split('\n');
+    for (let line of listContents.split('\n')) {
+        line = line.trim();
 
-    for (var i = 0; i < lines.length; i++) {
-        if (lines[i].trim() === '') {
+        if (line === '') {
             continue;
         }
 
         try {
-            if ((new RegExp(lines[i], 'i')).test(tab.url)) {
+            if ((new RegExp(line, 'i')).test(tab.url)) {
                 return true;
             }
         } catch (e) {
-            console.log(browser.i18n.getMessage('invalidRegex') + ' "' + lines[i] + '".');
+            console.log(browser.i18n.getMessage('invalidRegex') + ' "' + line + '".');
         }
     }
 
