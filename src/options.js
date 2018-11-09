@@ -42,19 +42,21 @@ function displayRegexWarning(listContents, type) {
         warningElements[0].parentNode.removeChild(warningElements[0]);
     }
 
-    for (var i = 0; i < lines.length; i++) {
-        if (lines[i].trim() === '') {
+    for (let line of listContents.split('\n')) {
+        line = line.trim();
+
+        if (line === '') {
             continue;
         }
 
         try {
-            new RegExp(lines[i], 'i');
+            new RegExp(line, 'i');
         } catch (e) {
             var warningElement = document.createElement('span');
             warningElement.classList.add('warning');
             warningElement.appendChild(
                 document.createTextNode(
-                    browser.i18n.getMessage('invalidRegex') + ' "' + lines[i] + '"'
+                    browser.i18n.getMessage('invalidRegex') + ' "' + line + '"'
                 )
             );
             warningsContainer.appendChild(warningElement);
