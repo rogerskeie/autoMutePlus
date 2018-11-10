@@ -28,5 +28,17 @@
   },
   "disableAutoMute": {
     "message": "Click to disable auto mute"
+  },
+  "addDomainToWhitelist": {
+    "message": "Add domain to whitelist"
+  },
+  "addUrlToWhitelist": {
+    "message": "Add URL to whitelist"
+  },
+  "addDomainToBlacklist": {
+    "message": "Add domain to blacklist"
+  },
+  "addUrlToBlacklist": {
+    "message": "Add URL to blacklist"
   }
 }
