@@ -40,15 +40,46 @@
         title: browser.i18n.getMessage('addUrlToBlacklist')
     });
 
+    browser.menus.create({
+        id: 'muteAllTabs',
+        parentId: 'autoMutePlus',
+        title: browser.i18n.getMessage('muteAllTabs'),
+        icons: {
+            '16': 'icons/icon_muted.svg'
+        }
+    });
+
+    browser.menus.create({
+        id: 'unmuteAllTabs',
+        parentId: 'autoMutePlus',
+        title: browser.i18n.getMessage('unmuteAllTabs'),
+        icons: {
+            '16': 'icons/icon_unmuted.svg'
+        }
+    });
+
     toggleIcon();
     browser.tabs.onCreated.addListener(createdListener);
     browser.browserAction.onClicked.addListener(toggleAutoMute);
+
     browser.menus.onClicked.addListener((info, tab) => {
-        var url = new URL(tab.url);
-        [action, listType] = info.menuItemId.split('To');
-        addItemToList(escapeRegExp(action === 'addDomain' ? url.hostname : url.href), listType.toLowerCase());
+        if (info.menuItemId.endsWith('muteAllTabs')) {
+            toggleTabMutes(info.menuItemId === 'muteAllTabs');
+        } else {
+            var url = new URL(tab.url);
+            [action, listType] = info.menuItemId.split('To');
+            addItemToList(escapeRegExp(action === 'addDomain' ? url.hostname : url.href), listType.toLowerCase());
+        }
     });
 })();
+
+function toggleTabMutes(muted) {
+    browser.tabs.query({}).then(function (tabs) {
+        tabs.forEach(function (tab) {
+            browser.tabs.update(tab.id, {muted: muted});
+        });
+    });
+}
 
 function addItemToList(item, listType) {
     listType = listType.toLowerCase();

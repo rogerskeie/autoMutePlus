@@ -40,5 +40,11 @@
   },
   "addUrlToBlacklist": {
     "message": "Add URL to blacklist"
+  },
+  "muteAllTabs": {
+    "message": "Mute all tabs"
+  },
+  "unmuteAllTabs": {
+    "message": "Unmute all tabs"
   }
 }
