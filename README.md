@@ -2,6 +2,8 @@ Auto Mute Plus is a fork of the Firefox extension Auto mute v1.1, and adds the f
 - A toolbar button to enable and disable auto mute.
 - A whitelist (never muted, even with auto mute enabled).
 - A blacklist (always muted, even with auto mute disabled).
+- A context menu to add domain or URL to whitelist or blacklist.
+- Ability to mute or unmute all tabs from the context menu.
 
 https://addons.mozilla.org/en-US/firefox/addon/auto-mute-plus/
 
