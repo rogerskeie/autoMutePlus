@@ -90,7 +90,7 @@ function setMuted(tabId, muted) {
 function addItemToList(item, listType) {
     listType = listType.toLowerCase();
 
-    browser.storage.local.get().then(result => {
+    browser.storage.local.get(listType).then(result => {
         const listContents = result[listType].trim();
         let keys = {};
         const needsNewline = listContents !== '';
@@ -131,14 +131,14 @@ function autoMute(tab) {
 }
 
 function toggleAutoMute() {
-    browser.storage.local.get().then(result => {
+    browser.storage.local.get('autoMute').then(result => {
         browser.storage.local.set({autoMute: !result.autoMute});
         toggleIcon();
     });
 }
 
 function toggleIcon() {
-    browser.storage.local.get().then(result => {
+    browser.storage.local.get('autoMute').then(result => {
         browser.browserAction.setIcon({
             path: 'icons/icon_' + (result.autoMute ? 'muted' : 'unmuted') + '.svg'
         });
