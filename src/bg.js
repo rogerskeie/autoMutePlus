@@ -44,7 +44,6 @@
         },
         {
             id: 'unmuteAllTabs',
-            parentId: 'autoMutePlus',
             title: browser.i18n.getMessage('unmuteAllTabs'),
             icons: {
                 '16': 'icons/icon_unmuted.svg'
