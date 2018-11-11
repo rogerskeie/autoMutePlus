@@ -58,10 +58,6 @@
         }
     });
 
-    toggleIcon();
-    browser.tabs.onCreated.addListener(createdListener);
-    browser.browserAction.onClicked.addListener(toggleAutoMute);
-
     browser.menus.onClicked.addListener((info, tab) => {
         if (info.menuItemId.endsWith('muteAllTabs')) {
             toggleTabMutes(info.menuItemId === 'muteAllTabs');
@@ -71,6 +67,10 @@
             addItemToList(escapeRegExp(action === 'addDomain' ? url.hostname : url.href), listType.toLowerCase());
         }
     });
+
+    toggleIcon();
+    browser.tabs.onCreated.addListener(createdListener);
+    browser.browserAction.onClicked.addListener(toggleAutoMute);
 })();
 
 function toggleTabMutes(muted) {
