@@ -30,9 +30,11 @@ function saveOptions() {
     displayRegexWarning(whitelistContents, 'whitelist');
     displayRegexWarning(blacklistContents, 'blacklist');
 
-    browser.storage.local.get('darkTheme').then(result => {
+    browser.storage.local.get(['autoMute', 'darkTheme']).then(result => {
         if (darkTheme !== result.darkTheme) {
-            iconNeedsToggle = true;
+            browser.browserAction.setIcon({
+                path: 'icons/icon_' + (result.autoMute ? 'muted' : 'unmuted') + (darkTheme ? '_dark' : '') + '.svg'
+            });
         }
 
         browser.storage.local.set({
@@ -41,18 +43,6 @@ function saveOptions() {
             darkTheme: darkTheme,
             whitelist: whitelistContents,
             blacklist: blacklistContents
-        });
-
-        if (iconNeedsToggle) {
-            toggleTheme();
-        }
-    });
-}
-
-function toggleTheme() {
-    browser.storage.local.get(['autoMute', 'darkTheme']).then(result => {
-        browser.browserAction.setIcon({
-            path: 'icons/icon_' + (result.autoMute ? 'muted' : 'unmuted') + (result.darkTheme ? '_dark' : '') + '.svg'
         });
     });
 }
