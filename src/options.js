@@ -24,7 +24,6 @@
 
 function saveOptions() {
     const darkTheme = document.getElementById('darkTheme').checked;
-    let iconNeedsToggle = false;
     const whitelistContents = document.getElementById('whitelist').value;
     const blacklistContents = document.getElementById('blacklist').value;
     displayRegexWarning(whitelistContents, 'whitelist');
