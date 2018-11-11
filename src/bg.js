@@ -139,7 +139,6 @@ function toggleAutoMute() {
 }
 
 function toggleIcon() {
-    console.log('toggle');
     browser.storage.local.get(['autoMute', 'darkTheme']).then(result => {
         browser.browserAction.setIcon({
             path: 'icons/icon_' + (result.autoMute ? 'muted' : 'unmuted') + (result.darkTheme ? '_dark' : '') + '.svg'
