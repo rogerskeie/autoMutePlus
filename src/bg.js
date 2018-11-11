@@ -6,6 +6,7 @@
             browser.storage.local.set({
                 normalMode: true,
                 privateMode: true,
+                darkTheme: false,
                 autoMute: true,
                 whitelist: '',
                 blacklist: ''
@@ -138,9 +139,10 @@ function toggleAutoMute() {
 }
 
 function toggleIcon() {
-    browser.storage.local.get('autoMute').then(result => {
+    console.log('toggle');
+    browser.storage.local.get(['autoMute', 'darkTheme']).then(result => {
         browser.browserAction.setIcon({
-            path: 'icons/icon_' + (result.autoMute ? 'muted' : 'unmuted') + '.svg'
+            path: 'icons/icon_' + (result.autoMute ? 'muted' : 'unmuted') + (result.darkTheme ? '_dark' : '') + '.svg'
         });
         browser.browserAction.setTitle({
             title: browser.i18n.getMessage((result.autoMute ? 'disable' : 'enable') + 'AutoMute')

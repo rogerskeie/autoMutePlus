@@ -4,8 +4,9 @@
     document.getElementById('title').textContent = browser.i18n.getMessage('options');
     document.getElementById('label1').textContent = browser.i18n.getMessage('normal');
     document.getElementById('label2').textContent = browser.i18n.getMessage('private');
-    document.getElementById('label3').textContent = browser.i18n.getMessage('whitelist');
-    document.getElementById('label4').textContent = browser.i18n.getMessage('blacklist');
+    document.getElementById('label3').textContent = browser.i18n.getMessage('darkTheme');
+    document.getElementById('label4').textContent = browser.i18n.getMessage('whitelist');
+    document.getElementById('label5').textContent = browser.i18n.getMessage('blacklist');
     document.addEventListener('DOMContentLoaded', restoreOptions);
     document.getElementById('optionsForm').addEventListener('change', saveOptions);
 
@@ -22,16 +23,37 @@
 })();
 
 function saveOptions() {
+    const darkTheme = document.getElementById('darkTheme').checked;
+    let iconNeedsToggle = false;
     const whitelistContents = document.getElementById('whitelist').value;
     const blacklistContents = document.getElementById('blacklist').value;
     displayRegexWarning(whitelistContents, 'whitelist');
     displayRegexWarning(blacklistContents, 'blacklist');
 
-    browser.storage.local.set({
-        normalMode: document.getElementById('normalMode').checked,
-        privateMode: document.getElementById('privateMode').checked,
-        whitelist: whitelistContents,
-        blacklist: blacklistContents
+    browser.storage.local.get('darkTheme').then(result => {
+        if (darkTheme !== result.darkTheme) {
+            iconNeedsToggle = true;
+        }
+
+        browser.storage.local.set({
+            normalMode: document.getElementById('normalMode').checked,
+            privateMode: document.getElementById('privateMode').checked,
+            darkTheme: darkTheme,
+            whitelist: whitelistContents,
+            blacklist: blacklistContents
+        });
+
+        if (iconNeedsToggle) {
+            toggleTheme();
+        }
+    });
+}
+
+function toggleTheme() {
+    browser.storage.local.get(['autoMute', 'darkTheme']).then(result => {
+        browser.browserAction.setIcon({
+            path: 'icons/icon_' + (result.autoMute ? 'muted' : 'unmuted') + (result.darkTheme ? '_dark' : '') + '.svg'
+        });
     });
 }
 
@@ -69,6 +91,7 @@ function restoreOptions() {
     browser.storage.local.get().then(result => {
         document.getElementById('normalMode').checked = result.normalMode;
         document.getElementById('privateMode').checked = result.privateMode;
+        document.getElementById('darkTheme').checked = result.darkTheme;
         document.getElementById('whitelist').value = result.whitelist;
         document.getElementById('blacklist').value = result.blacklist;
     });

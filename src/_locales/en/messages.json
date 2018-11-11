@@ -14,6 +14,9 @@
   "private": {
     "message": "Mute new tabs in a private window"
   },
+  "darkTheme": {
+    "message": "Dark browser theme (check if your browser toolbar has a dark background)."
+  },
   "whitelist": {
     "message": "Whitelist (one valid regular expression per line). Will never be muted."
   },
