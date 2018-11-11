@@ -66,7 +66,7 @@
         if (info.menuItemId.endsWith('muteAllTabs')) {
             toggleTabMutes(info.menuItemId === 'muteAllTabs');
         } else {
-            var url = new URL(tab.url);
+            const url = new URL(tab.url);
             [action, listType] = info.menuItemId.split('To');
             addItemToList(escapeRegExp(action === 'addDomain' ? url.hostname : url.href), listType.toLowerCase());
         }
@@ -74,20 +74,24 @@
 })();
 
 function toggleTabMutes(muted) {
-    browser.tabs.query({}).then(function (tabs) {
+    browser.tabs.query({}).then((tabs)=> {
         tabs.forEach(function (tab) {
-            browser.tabs.update(tab.id, {muted: muted});
+            setMuted(tab.id, muted);
         });
     });
+}
+
+function setMuted(tabId, muted) {
+    browser.tabs.update(tabId, {muted: muted});
 }
 
 function addItemToList(item, listType) {
     listType = listType.toLowerCase();
 
     browser.storage.local.get().then(result => {
-        var listContents = result[listType].trim();
-        var keys = {};
-        var needsNewline = listContents !== '' && !listContents.endsWith('\n');
+        const listContents = result[listType].trim();
+        let keys = {};
+        const needsNewline = listContents !== '' && !listContents.endsWith('\n');
         keys[listType] = listContents + (needsNewline ? '\n' : '') + item;
         browser.storage.local.set(keys);
     });
@@ -112,14 +116,14 @@ function autoMute(tab) {
     browser.storage.local.get().then(result => {
         const normalMode = result.normalMode;
         const privateMode = result.privateMode;
-        var whitelisted = listMatchesTab(result.whitelist, tab);
-        var blacklisted = listMatchesTab(result.blacklist, tab);
+        const whitelisted = listMatchesTab(result.whitelist, tab);
+        const blacklisted = listMatchesTab(result.blacklist, tab);
 
         if (
             blacklisted
             || (!whitelisted && result.autoMute && ((tab.incognito && privateMode) || (!tab.incognito && normalMode)))
         ) {
-            browser.tabs.update(tab.id, {muted: true});
+            setMuted(tab.id, true);
         }
     });
 }

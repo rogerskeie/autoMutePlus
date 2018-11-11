@@ -7,8 +7,8 @@
     document.addEventListener('DOMContentLoaded', restoreOptions);
     document.getElementById('optionsForm').addEventListener('change', saveOptions);
 
-    var whitelist = document.getElementById('whitelist');
-    var blacklist = document.getElementById('blacklist');
+    const whitelist = document.getElementById('whitelist');
+    const blacklist = document.getElementById('blacklist');
 
     if (whitelist.addEventListener) {
         whitelist.addEventListener('input', saveOptions, false);
@@ -20,8 +20,8 @@
 })();
 
 function saveOptions() {
-    var whitelistContents = document.getElementById('whitelist').value;
-    var blacklistContents = document.getElementById('blacklist').value;
+    const whitelistContents = document.getElementById('whitelist').value;
+    const blacklistContents = document.getElementById('blacklist').value;
     displayRegexWarning(whitelistContents, 'whitelist');
     displayRegexWarning(blacklistContents, 'blacklist');
 
@@ -34,9 +34,8 @@ function saveOptions() {
 }
 
 function displayRegexWarning(listContents, type) {
-    var lines = listContents.split('\n');
-    var warningsContainer = document.getElementById(type + '-warnings');
-    var warningElements = warningsContainer.getElementsByClassName('warning');
+    const warningsContainer = document.getElementById(type + '-warnings');
+    const warningElements = warningsContainer.getElementsByClassName('warning');
 
     while (warningElements[0]) {
         warningElements[0].parentNode.removeChild(warningElements[0]);
@@ -52,7 +51,7 @@ function displayRegexWarning(listContents, type) {
         try {
             new RegExp(line, 'i');
         } catch (e) {
-            var warningElement = document.createElement('span');
+            const warningElement = document.createElement('span');
             warningElement.classList.add('warning');
             warningElement.appendChild(
                 document.createTextNode(
