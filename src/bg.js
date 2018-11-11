@@ -1,3 +1,5 @@
+'use strict';
+
 (function () {
     browser.storage.local.get().then(result => {
         if (result.normalMode === undefined) {
@@ -16,53 +18,47 @@
         title: browser.i18n.getMessage('extensionName')
     });
 
-    browser.menus.create({
-        id: 'addDomainToWhitelist',
-        parentId: 'autoMutePlus',
-        title: browser.i18n.getMessage('addDomainToWhitelist')
-    });
-
-    browser.menus.create({
-        id: 'addUrlToWhitelist',
-        parentId: 'autoMutePlus',
-        title: browser.i18n.getMessage('addUrlToWhitelist')
-    });
-
-    browser.menus.create({
-        id: 'addDomainToBlacklist',
-        parentId: 'autoMutePlus',
-        title: browser.i18n.getMessage('addDomainToBlacklist')
-    });
-
-    browser.menus.create({
-        id: 'addUrlToBlacklist',
-        parentId: 'autoMutePlus',
-        title: browser.i18n.getMessage('addUrlToBlacklist')
-    });
-
-    browser.menus.create({
-        id: 'muteAllTabs',
-        parentId: 'autoMutePlus',
-        title: browser.i18n.getMessage('muteAllTabs'),
-        icons: {
-            '16': 'icons/icon_muted.svg'
+    createMenu([
+        {
+            id: 'addDomainToWhitelist',
+            title: browser.i18n.getMessage('addDomainToWhitelist')
+        },
+        {
+            id: 'addUrlToWhitelist',
+            title: browser.i18n.getMessage('addUrlToWhitelist')
+        },
+        {
+            id: 'addDomainToBlacklist',
+            title: browser.i18n.getMessage('addDomainToBlacklist')
+        },
+        {
+            id: 'addUrlToBlacklist',
+            title: browser.i18n.getMessage('addUrlToBlacklist')
+        },
+        {
+            id: 'muteAllTabs',
+            title: browser.i18n.getMessage('muteAllTabs'),
+            icons: {
+                '16': 'icons/icon_muted.svg'
+            }
+        },
+        {
+            id: 'unmuteAllTabs',
+            parentId: 'autoMutePlus',
+            title: browser.i18n.getMessage('unmuteAllTabs'),
+            icons: {
+                '16': 'icons/icon_unmuted.svg'
+            }
         }
-    });
-
-    browser.menus.create({
-        id: 'unmuteAllTabs',
-        parentId: 'autoMutePlus',
-        title: browser.i18n.getMessage('unmuteAllTabs'),
-        icons: {
-            '16': 'icons/icon_unmuted.svg'
-        }
-    });
+    ]);
 
     browser.menus.onClicked.addListener((info, tab) => {
         if (info.menuItemId.endsWith('muteAllTabs')) {
-            toggleTabMutes(info.menuItemId === 'muteAllTabs');
+            setTabMutes(info.menuItemId === 'muteAllTabs');
         } else {
             const url = new URL(tab.url);
+            let action;
+            let listType;
             [action, listType] = info.menuItemId.split('To');
             addItemToList(escapeRegExp(action === 'addDomain' ? url.hostname : url.href), listType.toLowerCase());
         }
@@ -73,9 +69,16 @@
     browser.browserAction.onClicked.addListener(toggleAutoMute);
 })();
 
-function toggleTabMutes(muted) {
-    browser.tabs.query({}).then((tabs)=> {
-        tabs.forEach(function (tab) {
+function createMenu(items) {
+    items.forEach((item) => {
+        item.parentId = 'autoMutePlus';
+        browser.menus.create(item);
+    });
+}
+
+function setTabMutes(muted) {
+    browser.tabs.query({}).then((tabs) => {
+        tabs.forEach((tab) => {
             setMuted(tab.id, muted);
         });
     });
@@ -91,7 +94,7 @@ function addItemToList(item, listType) {
     browser.storage.local.get().then(result => {
         const listContents = result[listType].trim();
         let keys = {};
-        const needsNewline = listContents !== '' && !listContents.endsWith('\n');
+        const needsNewline = listContents !== '';
         keys[listType] = listContents + (needsNewline ? '\n' : '') + item;
         browser.storage.local.set(keys);
     });

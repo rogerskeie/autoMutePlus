@@ -1,3 +1,5 @@
+'use strict';
+
 (function () {
     document.getElementById('title').textContent = browser.i18n.getMessage('options');
     document.getElementById('label1').textContent = browser.i18n.getMessage('normal');
