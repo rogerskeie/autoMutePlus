@@ -52,21 +52,10 @@
         }
     ]);
 
-    browser.menus.onClicked.addListener((info, tab) => {
-        if (info.menuItemId.endsWith('muteAllTabs')) {
-            setTabMutes(info.menuItemId === 'muteAllTabs');
-        } else {
-            const url = new URL(tab.url);
-            let action;
-            let listType;
-            [action, listType] = info.menuItemId.split('To');
-            addItemToList(escapeRegExp(action === 'addDomain' ? url.hostname : url.href), listType.toLowerCase());
-        }
-    });
-
-    toggleIcon();
+    browser.menus.onClicked.addListener(menuListener);
     browser.tabs.onCreated.addListener(createdListener);
     browser.browserAction.onClicked.addListener(toggleAutoMute);
+    toggleIcon();
 })();
 
 function createMenu(items) {
@@ -74,6 +63,33 @@ function createMenu(items) {
         item.parentId = 'autoMutePlus';
         browser.menus.create(item);
     });
+}
+
+function menuListener(info, tab) {
+    if (info.menuItemId.endsWith('muteAllTabs')) {
+        setTabMutes(info.menuItemId === 'muteAllTabs');
+    } else {
+        const url = new URL(tab.url);
+        let action;
+        let listType;
+        [action, listType] = info.menuItemId.split('To');
+        addItemToList(escapeRegExp(action === 'addDomain' ? url.hostname : url.href), listType.toLowerCase());
+    }
+}
+
+function createdListener(tab) {
+    if (tab.url === 'about:newtab') {
+        autoMute(tab);
+    } else {
+        browser.tabs.onUpdated.addListener(updatedListener);
+    }
+}
+
+function updatedListener(tabId, changeInfo, tab) {
+    if (changeInfo.status === 'loading' && tab.url !== 'about:blank') {
+        autoMute(tab);
+        browser.tabs.onUpdated.removeListener(updatedListener);
+    }
 }
 
 function setTabMutes(muted) {
@@ -98,21 +114,6 @@ function addItemToList(item, listType) {
         keys[listType] = listContents + (needsNewline ? '\n' : '') + item;
         browser.storage.local.set(keys);
     });
-}
-
-function createdListener(tab) {
-    if (tab.url === 'about:newtab') {
-        autoMute(tab);
-    } else {
-        browser.tabs.onUpdated.addListener(updatedListener);
-    }
-}
-
-function updatedListener(tabId, changeInfo, tab) {
-    if (changeInfo.status === 'loading' && tab.url !== 'about:blank') {
-        autoMute(tab);
-        browser.tabs.onUpdated.removeListener(updatedListener);
-    }
 }
 
 function autoMute(tab) {
