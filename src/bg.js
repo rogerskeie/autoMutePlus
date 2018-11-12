@@ -22,30 +22,30 @@
     createMenu([
         {
             id: 'addDomainToWhitelist',
-            title: browser.i18n.getMessage('addDomainToWhitelist')
+            titleKey: 'addDomainToWhitelist'
         },
         {
             id: 'addUrlToWhitelist',
-            title: browser.i18n.getMessage('addUrlToWhitelist')
+            titleKey: 'addUrlToWhitelist'
         },
         {
             id: 'addDomainToBlacklist',
-            title: browser.i18n.getMessage('addDomainToBlacklist')
+            titleKey: 'addDomainToBlacklist'
         },
         {
             id: 'addUrlToBlacklist',
-            title: browser.i18n.getMessage('addUrlToBlacklist')
+            titleKey: 'addUrlToBlacklist'
         },
         {
             id: 'muteAllTabs',
-            title: browser.i18n.getMessage('muteAllTabs'),
+            titleKey: 'muteAllTabs',
             icons: {
                 '16': 'icons/icon_muted.svg'
             }
         },
         {
             id: 'unmuteAllTabs',
-            title: browser.i18n.getMessage('unmuteAllTabs'),
+            titleKey: 'unmuteAllTabs',
             icons: {
                 '16': 'icons/icon_unmuted.svg'
             }
@@ -60,6 +60,8 @@
 
 function createMenu(items) {
     items.forEach((item) => {
+        item.title = browser.i18n.getMessage(item.titleKey);
+        delete item.titleKey;
         item.parentId = 'autoMutePlus';
         browser.menus.create(item);
     });
