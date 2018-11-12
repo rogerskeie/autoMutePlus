@@ -14,12 +14,11 @@
         }
     });
 
-    browser.menus.create({
-        id: 'autoMutePlus',
-        title: browser.i18n.getMessage('extensionName')
-    });
-
     createMenu([
+        {
+            id: 'autoMutePlus',
+            titleKey: 'extensionName'
+        },
         {
             id: 'addDomainToWhitelist',
             titleKey: 'addDomainToWhitelist'
@@ -60,9 +59,12 @@
 
 function createMenu(items) {
     items.forEach((item) => {
+        if (item.id !== 'autoMutePlus') {
+            item.parentId = 'autoMutePlus';
+        }
+
         item.title = browser.i18n.getMessage(item.titleKey);
         delete item.titleKey;
-        item.parentId = 'autoMutePlus';
         browser.menus.create(item);
     });
 }
