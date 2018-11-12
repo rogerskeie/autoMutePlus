@@ -12,6 +12,8 @@
                 blacklist: ''
             });
         }
+
+        toggleIcon();
     });
 
     createMenu([
@@ -54,7 +56,6 @@
     browser.menus.onClicked.addListener(menuListener);
     browser.tabs.onCreated.addListener(createdListener);
     browser.browserAction.onClicked.addListener(toggleAutoMute);
-    toggleIcon();
 })();
 
 function createMenu(items) {
