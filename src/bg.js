@@ -58,7 +58,7 @@
 })();
 
 function createMenu(items) {
-    items.forEach((item) => {
+    items.forEach(item => {
         if (item.id !== 'autoMutePlus') {
             item.parentId = 'autoMutePlus';
         }
@@ -97,8 +97,8 @@ function updatedListener(tabId, changeInfo, tab) {
 }
 
 function setTabMutes(muted) {
-    browser.tabs.query({}).then((tabs) => {
-        tabs.forEach((tab) => {
+    browser.tabs.query({}).then(tabs => {
+        tabs.forEach(tab => {
             setMuted(tab.id, muted);
         });
     });
