@@ -8,7 +8,7 @@ Auto Mute Plus is a fork of the Firefox extension Auto mute v1.1, and adds the f
 https://addons.mozilla.org/en-US/firefox/addon/auto-mute-plus/
 
 
-I you don't need the additional features, you can use the original extension (download link at the bottom of this page).
+If you don't need the additional features, you can use the original extension (download link at the bottom of this page).
 
 Below is the original README.md from https://github.com/WaldiPL/autoMute
 
