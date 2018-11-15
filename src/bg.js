@@ -19,34 +19,27 @@
     createMenu([
         {
             id: 'autoMutePlus',
-            titleKey: 'extensionName'
         },
         {
             id: 'addDomainToWhitelist',
-            titleKey: 'addDomainToWhitelist'
         },
         {
             id: 'addUrlToWhitelist',
-            titleKey: 'addUrlToWhitelist'
         },
         {
             id: 'addDomainToBlacklist',
-            titleKey: 'addDomainToBlacklist'
         },
         {
             id: 'addUrlToBlacklist',
-            titleKey: 'addUrlToBlacklist'
         },
         {
             id: 'muteAllTabs',
-            titleKey: 'muteAllTabs',
             icons: {
                 '16': 'icons/icon_muted.svg'
             }
         },
         {
             id: 'unmuteAllTabs',
-            titleKey: 'unmuteAllTabs',
             icons: {
                 '16': 'icons/icon_unmuted.svg'
             }
@@ -64,8 +57,7 @@ function createMenu(items) {
             item.parentId = 'autoMutePlus';
         }
 
-        item.title = browser.i18n.getMessage(item.titleKey);
-        delete item.titleKey;
+        item.title = browser.i18n.getMessage(item.id);
         browser.menus.create(item);
     });
 }
