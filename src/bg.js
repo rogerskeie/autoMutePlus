@@ -71,6 +71,10 @@ function menuListener(info, tab) {
         let listType;
         [action, listType] = info.menuItemId.split('To');
         addItemToList(escapeRegExp(action === 'addDomain' ? url.hostname : url.href), listType);
+
+        if (listType === 'Blacklist') {
+            setMuted(tab, true);
+        }
     }
 }
 
