@@ -92,13 +92,13 @@ function updatedListener(tabId, changeInfo, tab) {
 function setTabMutes(muted) {
     browser.tabs.query({}).then(tabs => {
         tabs.forEach(tab => {
-            setMuted(tab.id, muted);
+            setMuted(tab, muted);
         });
     });
 }
 
-function setMuted(tabId, muted) {
-    browser.tabs.update(tabId, {muted: muted});
+function setMuted(tab, muted) {
+    browser.tabs.update(tab.id, {muted: muted});
 }
 
 function addItemToList(item, listType) {
@@ -124,7 +124,7 @@ function autoMute(tab) {
             blacklisted
             || (!whitelisted && result.autoMute && ((tab.incognito && privateMode) || (!tab.incognito && normalMode)))
         ) {
-            setMuted(tab.id, true);
+            setMuted(tab, true);
         }
     });
 }
