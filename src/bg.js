@@ -70,7 +70,7 @@ function menuListener(info, tab) {
         let action;
         let listType;
         [action, listType] = info.menuItemId.split('To');
-        addItemToList(escapeRegExp(action === 'addDomain' ? url.hostname : url.href), listType.toLowerCase());
+        addItemToList(escapeRegExp(action === 'addDomain' ? url.hostname : url.href), listType);
     }
 }
 
