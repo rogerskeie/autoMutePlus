@@ -51,6 +51,9 @@
     browser.browserAction.onClicked.addListener(toggleAutoMute);
 })();
 
+/**
+ * @param  {Array<Object>} items
+ */
 function createMenu(items) {
     items.forEach(item => {
         if (item.id !== 'autoMutePlus') {
@@ -62,6 +65,10 @@ function createMenu(items) {
     });
 }
 
+/**
+ * @param  {browser.menus.OnClickData} info
+ * @param  {browser.tabs.Tab} tab
+ */
 function menuListener(info, tab) {
     if (info.menuItemId.endsWith('muteAllTabs')) {
         setTabMutes(info.menuItemId === 'muteAllTabs');
@@ -78,6 +85,9 @@ function menuListener(info, tab) {
     }
 }
 
+/**
+ * @param  {browser.tabs.Tab} tab
+ */
 function createdListener(tab) {
     if (tab.url === 'about:newtab') {
         autoMute(tab);
@@ -86,6 +96,11 @@ function createdListener(tab) {
     }
 }
 
+/**
+ * @param  {number} tabId
+ * @param  {browser.tabs.Tab} changeInfo
+ * @param  {browser.tabs.Tab} tab
+ */
 function updatedListener(tabId, changeInfo, tab) {
     if (changeInfo.status === 'loading' && tab.url !== 'about:blank') {
         autoMute(tab);
@@ -93,6 +108,9 @@ function updatedListener(tabId, changeInfo, tab) {
     }
 }
 
+/**
+ * @param  {boolean} muted
+ */
 function setTabMutes(muted) {
     browser.tabs.query({}).then(tabs => {
         tabs.forEach(tab => {
@@ -101,10 +119,18 @@ function setTabMutes(muted) {
     });
 }
 
+/**
+ * @param  {browser.tabs.Tab} tab
+ * @param  {boolean} muted
+ */
 function setMuted(tab, muted) {
     browser.tabs.update(tab.id, {muted: muted});
 }
 
+/**
+ * @param  {string} item
+ * @param  {string} listType
+ */
 function addItemToList(item, listType) {
     listType = listType.toLowerCase();
 
@@ -117,6 +143,9 @@ function addItemToList(item, listType) {
     });
 }
 
+/**
+ * @param  {browser.tabs.Tab} tab
+ */
 function autoMute(tab) {
     browser.storage.local.get().then(result => {
         const normalMode = result.normalMode;
@@ -151,6 +180,11 @@ function toggleIcon() {
     });
 }
 
+/**
+ * @param  {string} listContents
+ * @param  {browser.tabs.Tab} tab
+ * @returns {boolean}
+ */
 function listMatchesTab(listContents, tab) {
     for (let line of listContents.split('\n')) {
         line = line.trim();
@@ -171,6 +205,10 @@ function listMatchesTab(listContents, tab) {
     return false;
 }
 
+/**
+ * @param  {string} string
+ * @returns {string}
+ */
 function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

@@ -46,6 +46,10 @@ function saveOptions() {
     });
 }
 
+/**
+ * @param  {string} listContents
+ * @param  {string} type
+ */
 function displayRegexWarning(listContents, type) {
     const warningsContainer = document.getElementById(type + '-warnings');
     const warningElements = warningsContainer.getElementsByClassName('warning');
