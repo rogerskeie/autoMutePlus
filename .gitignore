@@ -21,6 +21,9 @@ $RECYCLE.BIN/
 # PhpStorm project folder
 .idea/
 
+# NPM modules folder
+/node_modules/
+
 # =========================
 # Operating System Files
 # =========================
