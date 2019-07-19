@@ -22,7 +22,7 @@
   "manifest_version": 2,
   "name": "__MSG_autoMutePlus__",
   "default_locale": "en",
-  "version": "1.8",
+  "version": "1.9",
   "icons": {
     "48": "icons/icon_muted.svg"
   },

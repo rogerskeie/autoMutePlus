@@ -47,8 +47,8 @@
     ]);
 
     browser.menus.onClicked.addListener(menuListener);
-    browser.tabs.onCreated.addListener(createdListener);
     browser.browserAction.onClicked.addListener(toggleAutoMute);
+    browser.tabs.onUpdated.addListener(updatedListener);
 })();
 
 /**
@@ -86,17 +86,6 @@ function menuListener(info, tab) {
 }
 
 /**
- * @param  {browser.tabs.Tab} tab
- */
-function createdListener(tab) {
-    if (tab.url === 'about:newtab') {
-        autoMute(tab);
-    } else {
-        browser.tabs.onUpdated.addListener(updatedListener);
-    }
-}
-
-/**
  * @param  {number} tabId
  * @param  {browser.tabs.Tab} changeInfo
  * @param  {browser.tabs.Tab} tab
@@ -104,7 +93,6 @@ function createdListener(tab) {
 function updatedListener(tabId, changeInfo, tab) {
     if (changeInfo.status === 'loading' && tab.url !== 'about:blank') {
         autoMute(tab);
-        browser.tabs.onUpdated.removeListener(updatedListener);
     }
 }
 
